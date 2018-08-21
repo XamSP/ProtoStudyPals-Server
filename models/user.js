@@ -17,12 +17,24 @@ const userSchema = new Schema({
     default : 'Unknown'
   },
   age: Number,
+  location: {
+    country: String,
+    state: String,
+    city: String,
+    address: String,
+    zipcode: String,     
+  },
+  email: String, 
   imgName: String,
   imgPath: String,
   rating: {
     type: Number,
     default: 5,
   },
+  subjects: [{
+    type: Schema.Types.ObjectId,
+    ref: "Subject",
+  }],
   tags:[String],
   pals:[
     { 
@@ -30,8 +42,16 @@ const userSchema = new Schema({
       ref: "User",
     }
   ],
+  sessionsPending:[{
+    type: Schema.Types.ObjectId, 
+    ref: "Session",
+  }],
+  sessionsDone:[{
+    type: Schema.Types.ObjectId, 
+    ref: "Session",
+  }],
   feedbacks:[{
-    type: String,
+    feedback: String,
     user:  { 
         type: Schema.Types.ObjectId, 
         ref: "User",
