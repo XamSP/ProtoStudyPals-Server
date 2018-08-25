@@ -19,7 +19,7 @@ subtagsRoute.get('/subject', (req, res, next) => {
 subtagsRoute.get('/:id', (req, res, next) => {
     Subject.findById(req.params.id)
     //make sure to populate everythin(host, usersAttending, feedbacks[i].user, subjects)  
-    .populate('host')
+    .populate('users')
       .exec((err, subject) => {
         if (err)         { return res.status(500).json(err); }
         if (!subject)      { return res.status(404).json(new Error("404")) }

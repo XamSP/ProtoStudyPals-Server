@@ -106,14 +106,14 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 //   });
 // }));
 
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(session({
   secret: process.env.SECRET, /*Remember to put the .env SECRET variable*/ 
   resave: true,
   saveUninitialized: true,
   cookie : { httpOnly: true, maxAge: 2419200000 }
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(cors());
 
 // catch 404 and forward to error handler

@@ -34,7 +34,6 @@ sessionRoute.post('/create', (req, res, next) => {
     const {
         title,
         subjects,
-        host: userId,
         description,
         tags,
         dateOfSession,
@@ -45,6 +44,7 @@ sessionRoute.post('/create', (req, res, next) => {
     const newSession = new Session({
         title,
         subjects,
+        host: userId,
         description,
         tags,
         dateOfSession,
