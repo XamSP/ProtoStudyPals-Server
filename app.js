@@ -133,13 +133,17 @@ app.use(cors());
 // });
 
 //routes
-const authApi = require('./routes/auth-api');
+const authApi     = require('./routes/auth-api');
 const usersRouter = require('./routes/users');
-const index = require('./routes/index');
+const index       = require('./routes/index');
+const sessionApi  = require('./routes/session-api');
+const subtagsApi  = require('./routes/subject-tags-api');
 
 app.use('/', index)
 app.use('/', authApi);
 app.use('/users', usersRouter);
+app.use('/session', sessionApi);
+app.use('/subtags', subtagsApi);
 
 app.use((req, res, next) => {
   res.sendFile(__dirname + '/public/index.html');

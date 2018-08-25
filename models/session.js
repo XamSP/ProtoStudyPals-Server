@@ -8,11 +8,15 @@ const sessionSchema = new Schema ({
         type: Schema.Types.ObjectId,
         ref: "Subject",
     }],
+    host: { 
+        type: Schema.Types.ObjectId, 
+        ref: "User",
+    },
     usersAttending: [
         { 
             type: Schema.Types.ObjectId, 
             ref: "User",
-          }
+        }
     ],
     requestsFromUsers: [{
         type: Schema.Types.ObjectId, 

@@ -30,15 +30,15 @@ const users = [
         imgPath: "",
         rating: 4,
         subjects: [
-            "Mathematics",
-            "Computer Science",
-            "Literature",
-            "Bussiness"
+            // "Mathematics",
+            // "Computer Science",
+            // "Literature",
+            // "Bussiness"
         ],
         tags:[
-            "Node.js", "Angular", "C++",
-            "Calculus", "Mechanic-Engeneering", 
-            "Mechatronics", "Entrepreneurship",
+            // "Node.js", "Angular", "C++",
+            // "Calculus", "Mechanic-Engeneering", 
+            // "Mechatronics", "Entrepreneurship",
         ],
         pals:[
             //add someone
@@ -49,31 +49,47 @@ const users = [
         sessionsDone:[
             //sessions
         ],
-        feedbacks:[
-            {
-            feedback: "Great Person",
-            user:  "1"/*userId*/,
-            }
-        ],
+        // feedbacks:[
+        //     // {
+        //     // feedback: "Great Person",
+        //     // user:  "1"/*userId*/,
+        //     // }
+        // ],
         inbox:[
 
         ],
         about: "I'm the Boss!",
-        experiences: [
-            "Boss", "Calculus Master", 
-            "Salesperson",
-        ],
+        // experiences: [
+        //     "Boss", "Calculus Master", 
+        //     "Salesperson",
+        // ],
     },
 
 ]
 
 const subjects = [
     {
-        title: JavaScript,
+        title: "JavaScript",
         users: [
             //userID
           ],
-        description: "Basic language of the web, with asynchronus features",
+        description: "Basic language of the web, with asynchronus features.",
+        imgName: "",
+        imgPath: "",
+        availableSessions: [
+            //sessions
+        ],
+        pastSessions: [
+            //sessions
+        ]
+    },
+    {
+        title: "HTML",
+        users: [
+            //userID
+          ],
+        description: "Basic language of the web, the fundamental.",
+        //https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/1200px-HTML5_logo_and_wordmark.svg.png
         imgName: "",
         imgPath: "",
         availableSessions: [
@@ -101,13 +117,13 @@ const sessions = [
     tags: [
         "JavaScript", "Arrays", "Types", "Methods"
     ],
-    dateOfSession: /*the Date*/2,
+    // dateOfSession: /*the Date*/2,
     level: "Beginner",
-    feedbacks: [{
-        feedback: "Not a bad lesson",
-        user: /*UserID*/1,
-        date: /*Date*/1
-    }],
+    // feedbacks: [{
+    //     feedback: "Not a bad lesson",
+    //     user: /*UserID*/1,
+    //     date: /*Date*/1
+    // }],
     location: {
         country: "United States",
         state: "California",
