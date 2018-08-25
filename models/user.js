@@ -6,6 +6,8 @@ mongoose.plugin(schema => { schema.options.usePushEach = true });
 const userSchema = new Schema({
   username: String,
   password: String,
+  firstName: String,
+  lastName: String,
   role: {
     type: String,
     enum: ['User', 'Admin', 'Boss',],
@@ -29,7 +31,7 @@ const userSchema = new Schema({
   imgPath: String,
   rating: {
     type: Number,
-    default: 5,
+    default: 4,
   },
   subjects: [{
     type: Schema.Types.ObjectId,

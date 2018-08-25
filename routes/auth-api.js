@@ -12,13 +12,20 @@ authRoutes.get('/', (req, res, next) => {
 })
 
 authRoutes.post('/signup', (req, res, next) => {
-    const username = req.body.username;
-    const password = req.body.password;
+    const { 
+      username, password, confirmPassword, firstName, lastName,
+      gender, age, location, email, about
+    } = req.body;
   
     if (!username || !password) {
       res.status(400).json({ message: 'Provide username and password' });
       return;
     }
+
+    if(confirmPassword !== password) {
+      res.status(400).json({ message: "Both passwords didn't Match"  });
+      return;
+    }  
   
     User.findOne({ username }, '_id', (err, foundUser) => {
       if (foundUser) {
@@ -31,7 +38,20 @@ authRoutes.post('/signup', (req, res, next) => {
   
       const theUser = new User({
         username,
-        password: hashPass
+        password: hashPass,
+        firstName,
+        lastName,
+        gender,
+        age,
+        location,/*:{
+         country : location.country,
+         state: location.state,
+         city: location.city,
+         address: location.address,
+         zipcode: location.zipcode 
+        }*/
+        email,
+        about
       });
   
       theUser.save((err) => {
