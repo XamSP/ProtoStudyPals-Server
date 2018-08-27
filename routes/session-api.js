@@ -12,7 +12,7 @@ sessionRoute.get('/', (req, res, next) => {
       if (err) { return res.json(err).status(500); }
   
       return res.json(sessions);
-    });
+    }).populate('host subjects usersAttending requestsFromUsers', 'username title');
 });
 
 sessionRoute.get('/:id', (req, res, next) => {
@@ -28,22 +28,29 @@ sessionRoute.get('/:id', (req, res, next) => {
 });
 
 sessionRoute.post('/create', (req, res, next) => {
-    console.log(req.body);
+    //console.log(req.body);
     const userId = req.body.user._id;
 
     const {
         title,
-        subjects,
         description,
         tags,
         dateOfSession,
         level,
         location
     } = req.body.session;
+
+    let subjects = [];
+    subjects.push(req.body.session.subject)
+    console.log(`this subject is equal to = ${req.body.session.subject}`)
+    
+    let usersAttending = [];
+    usersAttending.push(userId);
     
     const newSession = new Session({
         title,
         subjects,
+        usersAttending,
         host: userId,
         description,
         tags,

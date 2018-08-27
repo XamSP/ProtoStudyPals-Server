@@ -4,10 +4,12 @@ mongoose.plugin(schema => { schema.options.usePushEach = true });
 
 const sessionSchema = new Schema ({
     title: String,
-    subjects: [{
+    subjects: [
+        {
         type: Schema.Types.ObjectId,
         ref: "Subject",
-    }],
+        }
+    ], 
     host: { 
         type: Schema.Types.ObjectId, 
         ref: "User",
