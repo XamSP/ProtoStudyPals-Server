@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema   = mongoose.Schema;
 mongoose.plugin(schema => { schema.options.usePushEach = true });
 
-const sessionSchema = new Schema ({
+const studySessionSchema = new Schema ({
     title: String,
     subjects: [
         {
@@ -50,6 +50,6 @@ const sessionSchema = new Schema ({
       
 })
 
-const Session = mongoose.model("Session", sessionSchema);
+const StudySession = mongoose.model("StudySession", studySessionSchema);
 
-module.exports = Session;
+module.exports = StudySession;

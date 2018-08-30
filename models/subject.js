@@ -15,11 +15,11 @@ const subjectSchema = new Schema({
     imgPath: String,
     availableSessions: [{
         type: Schema.Types.ObjectId, 
-        ref: "Session",
+        ref: "StudySession",
     }],
     pastSessions: [{
         type: Schema.Types.ObjectId, 
-        ref: "Session",
+        ref: "StudySession",
     }]
 })
 

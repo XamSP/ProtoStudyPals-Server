@@ -2,7 +2,7 @@ const mongoose    = require('mongoose');
 const User        = require('../models/user');
 const Message     = require('../models/message');
 const Subject     = require('../models/subject');
-const Session     = require('../models/session');
+const StudySession= require('../models/studysession');
 
 const dbtitle     = 'ProtoStudyPals';
 
@@ -101,7 +101,7 @@ const subjects = [
     }
 ]
 
-const sessions = [
+const studySessions = [
     {
     title: "Basic Functions",
     subjects: [
@@ -139,7 +139,7 @@ Subject.create(subjects,(err)=>{
     console.log("Subjects Made it to MongoDB.ProtoStudyPals!!!")
 });
 
-Session.create(sessions,(err)=>{
+StudySession.create(studySessions,(err)=>{
     if (err) {throw err}
     console.log("Sessions Made it to MongoDB.ProtoStudyPals!!!")
 });

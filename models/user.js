@@ -46,11 +46,11 @@ const userSchema = new Schema({
   ],
   sessionsPending:[{
     type: Schema.Types.ObjectId, 
-    ref: "Session",
+    ref: "StudySession",
   }],
   sessionsDone:[{
     type: Schema.Types.ObjectId, 
-    ref: "Session",
+    ref: "StudySession",
   }],
   feedbacks:[{
     feedback: String,

@@ -2,13 +2,13 @@ const express    = require('express');
 const passport   = require('passport');
 
 const User       = require('../models/user');
-const Session    = require('../models/session');
+const StudySession    = require('../models/studysession');
 
 
 const sessionRoute = express.Router();
 
 sessionRoute.get('/', (req, res, next) => {
-    Session.find({}, (err, sessions) => {
+    StudySession.find({}, (err, sessions) => {
       if (err) { return res.json(err).status(500); }
   
       return res.json(sessions);
@@ -16,7 +16,7 @@ sessionRoute.get('/', (req, res, next) => {
 });
 
 sessionRoute.get('/:id', (req, res, next) => {
-    Session.findById(req.params.id)
+    StudySession.findById(req.params.id)
     //make sure to populate everythin(host, usersAttending, feedbacks[i].user, subjects)  
     .populate('host')
       .exec((err, session) => {
@@ -28,7 +28,7 @@ sessionRoute.get('/:id', (req, res, next) => {
 });
 
 sessionRoute.post('/create', (req, res, next) => {
-    //console.log(req.body);
+    console.log(req.body);
     const userId = req.body.user._id;
 
     const {
@@ -47,7 +47,7 @@ sessionRoute.post('/create', (req, res, next) => {
     let usersAttending = [];
     usersAttending.push(userId);
     
-    const newSession = new Session({
+    const newStudySession = new StudySession({
         title,
         subjects,
         usersAttending,
@@ -59,12 +59,12 @@ sessionRoute.post('/create', (req, res, next) => {
         location
     });
   
-    console.log(newSession)
+    console.log(newStudySession)
   
-    newSession.save( (err) => {
+    newStudySession.save( (err) => {
       if (err) { return res.status(500).json(err); }
   
-      return res.status(200).json(newSession);
+      return res.status(200).json(newStudySession);
     });
 });
 

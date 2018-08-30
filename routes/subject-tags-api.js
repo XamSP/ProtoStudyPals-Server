@@ -2,7 +2,7 @@ const express    = require('express');
 const passport   = require('passport');
 
 const User       = require('../models/user');
-const Session    = require('../models/session');
+const Session    = require('../models/studysession');
 const Subject    = require('../models/subject');
 //const Tags     = require('../models/subject');
 
