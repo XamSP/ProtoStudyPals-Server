@@ -81,17 +81,19 @@ app.use(
 );
 
 //routes
-const authApi     = require('./routes/auth-api');
-const usersRouter = require('./routes/users');
-const index       = require('./routes/index');
-const sessionApi  = require('./routes/session-api');
-const subtagsApi  = require('./routes/subject-tags-api');
+const authApi       = require('./routes/auth-api');
+const usersRouter   = require('./routes/users');
+const index         = require('./routes/index');
+const sessionApi    = require('./routes/session-api');
+const subtagsApi    = require('./routes/subject-tags-api');
+const messengerApi  = require('./routes/messenger-api');
 
 app.use('/', index)
 app.use('/', authApi);
 app.use('/users', usersRouter);
 app.use('/session', sessionApi);
 app.use('/subtags', subtagsApi);
+app.use('/messenger', messengerApi);
 
 app.use((req, res, next) => {
   res.sendFile(__dirname + '/public/index.html');

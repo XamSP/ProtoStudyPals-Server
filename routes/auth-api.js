@@ -7,8 +7,8 @@ const User       = require('../models/user');
 
 const authRoutes = express.Router();
 
-authRoutes.get('/', (req, res, next) => {
-  res.send("hi");
+authRoutes.get('/u', (req, res, next) => {
+  res.send(req.user);
 })
 
 authRoutes.post('/signup', (req, res, next) => {
