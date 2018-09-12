@@ -1,7 +1,7 @@
 const express    = require('express');
 const passport   = require('passport');
 
-const User       = require('../models/user');
+const User             = require('../models/user');
 const StudySession    = require('../models/studysession');
 
 
@@ -26,6 +26,43 @@ sessionRoute.get('/:id', (req, res, next) => {
         return res.json(session);
       });
 });
+
+sessionRoute.post('/join', (req, res, next) => {
+    console.log(req.session.passport.user);
+    
+    const myId = req.session.passport.user
+
+    const {sessionId} = req.body;
+
+    User.findById(myId)
+        .then(user => {
+            user.sessionsPending.push(sessionId)
+
+            user.save()
+                .then( event => {
+                    StudySession.findById(sessionId)
+                        .then(session => {
+                            session.usersAttending.push(myId)
+
+                            session.save()
+                                .then( event => {
+                                    res.send(event)
+                                })
+                                .catch(error => {
+                                    next(error)
+                        })
+                })
+                .catch(err => {
+                    console.log('no work saving the childMsg:', err);
+                    next();
+                })
+        })
+        .catch(err => {
+            console.log("Error with axios", err)
+            next();
+        })
+  })
+})
 
 sessionRoute.post('/create', (req, res, next) => {
     console.log(req.body);
