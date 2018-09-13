@@ -11,6 +11,34 @@ authRoutes.get('/u', (req, res, next) => {
   res.send(req.user);
 })
 
+authRoutes.post('/edit', (req, res, next) => {
+  const userId = req.user._id;
+  console.log(userId)
+  const { password, firstName, lastName, age,
+     email, about} = req.body;
+  const { country, state, city, address, zipcode } = req.body.location  
+  
+  const location = {
+    country, state, city, address, zipcode
+  }
+  console.log(about)
+  //console.log(req.body)
+  // const imgPath = req.file.url;
+  // const imgName = req.file.originalname;
+  
+  const salt = bcrypt.genSaltSync(10);
+  const hashPass = bcrypt.hashSync(password, salt);
+
+  console.log(req.file)
+  User.update({_id: userId}, { $set: { password: hashPass, firstName, lastName, age, email, location, /*imgName, imgPath,*/ about }},{new: true})
+  .then((user) => {
+    res.json(user)
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+});
+
 authRoutes.post('/signup', (req, res, next) => {
     const { 
       username, password, confirmPassword, firstName, lastName,

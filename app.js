@@ -90,10 +90,10 @@ const messengerApi  = require('./routes/messenger-api');
 
 app.use('/', index)
 app.use('/', authApi);
-app.use('/users', usersRouter);
-app.use('/session', sessionApi);
-app.use('/subtags', subtagsApi);
-app.use('/messenger', messengerApi);
+app.use('/users-api', usersRouter);
+app.use('/session-api', sessionApi);
+app.use('/subtags-api', subtagsApi);
+app.use('/messenger-api', messengerApi);
 
 app.use((req, res, next) => {
   res.sendFile(__dirname + '/public/index.html');

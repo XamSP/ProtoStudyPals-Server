@@ -2,10 +2,56 @@ const express    = require('express');
 const passport   = require('passport');
 
 const User             = require('../models/user');
+const Subject             = require('../models/subject');
 const StudySession    = require('../models/studysession');
 
 
 const sessionRoute = express.Router();
+
+sessionRoute.get('/my-sessions', (req, res, next) => {
+    console.log('lolll'+req.session.passport.user)
+    User.findById(req.session.passport.user).populate({
+        path: 'sessionsPending',
+        model: "StudySession",
+        populate: {
+          path: "subjects",
+          model: "Subject"
+        }
+      }).populate({
+        path: 'sessionsPending',
+        model: "StudySession",
+        populate: {
+          path: "host",
+          model: "User"
+        }
+      }).populate({
+        path: 'sessionsPending',
+        model: "StudySession",
+        populate: {
+          path: "usersAttending",
+          model: "User"
+        }
+      }).populate({
+        path: 'sessionsPending',
+        model: "StudySession",
+        populate: {
+          path: "requestsFromUsers",
+          model: "User"
+        }
+      })
+              .then(user => {
+            const mySessions = user.sessionsPending
+            console.log(mySessions)
+            return res.json({mySessions})
+    })      
+    //     'sessionsPending').populate('sessionsPending.host')
+    // populate('sessionsPending.subject').populate("sessionsPending.usersAttending").populate("sessionsPending.requestsFromUsers")
+    //     .then(user => {
+    //         const mySessions = user.sessionsPending
+    //         console.log(mySessions)
+    //         return res.json({mySessions})
+})
+
 
 sessionRoute.get('/', (req, res, next) => {
     StudySession.find({}, (err, sessions) => {
@@ -26,6 +72,10 @@ sessionRoute.get('/:id', (req, res, next) => {
         return res.json(session);
       });
 });
+
+
+//  .populate('host subjects usersAttending requestsFromUsers', 'username title');
+
 
 sessionRoute.post('/join', (req, res, next) => {
     console.log(req.session.passport.user);
@@ -100,8 +150,19 @@ sessionRoute.post('/create', (req, res, next) => {
   
     newStudySession.save( (err) => {
       if (err) { return res.status(500).json(err); }
-  
-      return res.status(200).json(newStudySession);
+        User.findById(userId)
+            .then(user => {
+                user.sessionsPending.push(newStudySession._id);
+                user.save( (err) => {
+                    if (err) { return res.status(500).json(err); }
+                    return res.status(200).json(newStudySession);
+                })
+            })
+            .catch(err => {
+                console.log("Error with axios", err)
+                next();
+            })
+      
     });
 });
 
