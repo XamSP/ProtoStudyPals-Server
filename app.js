@@ -42,7 +42,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors({
   credentials: true,
-  origin: ["http://localhost:4200"]
+  origin: [process.env.MAIN_URL, "https://study-pals.herokuapp.com"]
 }));
 
 
