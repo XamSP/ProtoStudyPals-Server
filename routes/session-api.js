@@ -4,33 +4,7 @@ const passport   = require('passport');
 const User             = require('../models/user');
 const Subject             = require('../models/subject');
 const StudySession    = require('../models/studysession');
-
-
 const sessionRoute = express.Router();
-
-sessionRoute.get('/:id', (req, res, next) => {
-    StudySession.findById(req.params.id)
-    //make sure to populate everythin(host, usersAttending, feedbacks[i].user, subjects)  
-    .populate({
-        path: "subjects",
-        model: "Subject"
-      }).populate({
-          path: "host",
-          model: "User"  
-      }).populate({
-          path: "usersAttending",
-          model: "User"
-      }).populate({
-          path: "requestsFromUsers",
-          model: "User"
-      })
-      .exec((err, session) => {
-        if (err)         { return res.status(500).json(err); }
-        if (!session)      { return res.status(404).json(new Error("404")) }
-  
-        return res.json(session);
-      });
-});
 
 sessionRoute.get('/my-sessions', (req, res, next) => {
     console.log('lolll'+req.session.passport.user)
@@ -79,6 +53,32 @@ sessionRoute.get('/my-sessions', (req, res, next) => {
     //         console.log(mySessions)
     //         return res.json({mySessions})
 })
+
+sessionRoute.get('/:id', (req, res, next) => {
+    StudySession.findById(req.params.id)
+    //make sure to populate everythin(host, usersAttending, feedbacks[i].user, subjects)  
+    .populate({
+        path: "subjects",
+        model: "Subject"
+      }).populate({
+          path: "host",
+          model: "User"  
+      }).populate({
+          path: "usersAttending",
+          model: "User"
+      }).populate({
+          path: "requestsFromUsers",
+          model: "User"
+      })
+      .exec((err, session) => {
+        if (err)         { return res.status(500).json(err); }
+        if (!session)      { return res.status(404).json(new Error("404")) }
+  
+        return res.json(session);
+      });
+});
+
+
 
 
 sessionRoute.get('/', (req, res, next) => {
