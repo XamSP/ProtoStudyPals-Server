@@ -26,7 +26,7 @@ const studySessionSchema = new Schema ({
     }],
     description: String,
     tags: [String],
-    dateOfSession: Date,
+    dateOfSession: String,
     level: {
         type: String,
         enum: ['Beginner', 'Intermediate', 'Advanced', 'Expert'],

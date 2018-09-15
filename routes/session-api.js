@@ -139,7 +139,7 @@ sessionRoute.post('/create', (req, res, next) => {
         tags,
         dateOfSession,
         level,
-        location
+        location,
     } = req.body.session;
 
     let subjects = [];
