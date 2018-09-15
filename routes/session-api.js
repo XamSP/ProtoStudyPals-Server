@@ -8,6 +8,30 @@ const StudySession    = require('../models/studysession');
 
 const sessionRoute = express.Router();
 
+sessionRoute.get('/:id', (req, res, next) => {
+    StudySession.findById(req.params.id)
+    //make sure to populate everythin(host, usersAttending, feedbacks[i].user, subjects)  
+    .populate({
+        path: "subjects",
+        model: "Subject"
+      }).populate({
+          path: "host",
+          model: "User"  
+      }).populate({
+          path: "usersAttending",
+          model: "User"
+      }).populate({
+          path: "requestsFromUsers",
+          model: "User"
+      })
+      .exec((err, session) => {
+        if (err)         { return res.status(500).json(err); }
+        if (!session)      { return res.status(404).json(new Error("404")) }
+  
+        return res.json(session);
+      });
+});
+
 sessionRoute.get('/my-sessions', (req, res, next) => {
     console.log('lolll'+req.session.passport.user)
     User.findById(req.session.passport.user).populate({
@@ -60,19 +84,6 @@ sessionRoute.get('/', (req, res, next) => {
       return res.json(sessions);
     }).populate('host subjects usersAttending requestsFromUsers', 'username title');
 });
-
-sessionRoute.get('/:id', (req, res, next) => {
-    StudySession.findById(req.params.id)
-    //make sure to populate everythin(host, usersAttending, feedbacks[i].user, subjects)  
-    .populate('host')
-      .exec((err, session) => {
-        if (err)         { return res.status(500).json(err); }
-        if (!session)      { return res.status(404).json(new Error("404")) }
-  
-        return res.json(session);
-      });
-});
-
 
 //  .populate('host subjects usersAttending requestsFromUsers', 'username title');
 
