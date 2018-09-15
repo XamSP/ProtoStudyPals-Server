@@ -1,9 +1,38 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const userRouter = express.Router();
+const User     = require("../models/user");
+const StudySession    = require('../models/studysession');
+
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+userRouter.get('/:id', (req, res, next) => {
+  const userId = req.params.id;
+  if(!userId) { return res.status(404).render('user not-found');}
+
+  User.findById(userId)
+  .populate({
+    path: "sessionsPending",
+    model: "StudySession",
+  }).populate({
+    path: "sessionsDone",
+    model: "StudySession"
+  }).populate({
+    path: "pals",
+    model: "User"
+  }).populate({
+    path: "feedbacks",
+    populate: {
+      path: "user",
+      model: "User"
+    }
+  }).then(user => {
+    return res.json({user})
+  }).catch(err => {
+    console.log("Error with axios", err)
+    next();
+})
+
+
 });
 
 // router.post('/edit', (req, res, next) => {
@@ -34,4 +63,4 @@ router.get('/', function(req, res, next) {
 //   })
 // });
 
-module.exports = router;
+module.exports = userRouter;

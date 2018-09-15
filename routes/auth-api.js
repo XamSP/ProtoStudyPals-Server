@@ -42,9 +42,11 @@ authRoutes.post('/edit', (req, res, next) => {
 authRoutes.post('/signup', (req, res, next) => {
     const { 
       username, password, confirmPassword, firstName, lastName,
-      gender, age, location, email, about
+      gender, age, location, email
     } = req.body;
   
+    location.country = 'United States';
+
     if (!username || !password) {
       res.status(400).json({ message: 'Provide username and password' });
       return;

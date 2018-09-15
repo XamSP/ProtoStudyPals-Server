@@ -63,11 +63,15 @@ sessionRoute.get('/my-sessions', (req, res, next) => {
           model: "User"
         }
       })
-              .then(user => {
+        .then(user => {
             const mySessions = user.sessionsPending
             console.log(mySessions)
             return res.json({mySessions})
     })      
+        .catch(err => {
+            console.log("Error", err)
+             next();
+    })
     //     'sessionsPending').populate('sessionsPending.host')
     // populate('sessionsPending.subject').populate("sessionsPending.usersAttending").populate("sessionsPending.requestsFromUsers")
     //     .then(user => {
